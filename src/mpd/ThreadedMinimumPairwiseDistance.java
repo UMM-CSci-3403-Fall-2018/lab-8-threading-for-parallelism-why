@@ -43,16 +43,21 @@ public class ThreadedMinimumPairwiseDistance implements MinimumPairwiseDistance 
     class LowerLeft implements Runnable {
 
         public void run() {
+            long localResult = Integer.MAX_VALUE;
 
             for(int i = 0; i < values.length/2; ++i) {
                 for (int j = 0; j < i; ++j) {
                     // Gives us all the pairs (i, j) where 0 ≤ j < i < N/2
 
                     long diff = Math.abs((long) values[i] - values[j]);
-                    if (diff < globalResult) {
-                        setGlobalResult(diff);
+                    if (diff < localResult) {
+                        localResult = diff;
                     }
                 }
+            }
+
+            if(localResult < globalResult) {
+                setGlobalResult(localResult);
             }
         }
 
@@ -61,16 +66,21 @@ public class ThreadedMinimumPairwiseDistance implements MinimumPairwiseDistance 
     class TopRight implements Runnable {
 
         public void run() {
+            long localResult = Integer.MAX_VALUE;
 
             for(int i = values.length/2; i < values.length; ++i) {
                 for (int j = values.length/2; j < i; ++j) {
                     // Gives us all the pairs (i, j) where N/2 ≤ j < i < N
 
                     long diff = Math.abs((long) values[i] - values[j]);
-                    if (diff < globalResult) {
-                        setGlobalResult(diff);
+                    if (diff < localResult) {
+                        localResult = diff;
                     }
                 }
+            }
+
+            if(localResult < globalResult) {
+                setGlobalResult(localResult);
             }
 
         }
@@ -80,16 +90,21 @@ public class ThreadedMinimumPairwiseDistance implements MinimumPairwiseDistance 
     class BottomRight implements Runnable {
 
         public void run() {
+            long localResult = Integer.MAX_VALUE;
 
             for(int i = values.length/2; i < values.length; ++i) {
                 for (int j = 0; j < i-(values.length/2); ++j) {
                     // Gives us all the pairs (i, j) where N/2 ≤ j + N/2 < i < N
 
                     long diff = Math.abs((long) values[i] - values[j]);
-                    if (diff < globalResult) {
-                        setGlobalResult(diff);
+                    if (diff < localResult) {
+                        localResult = diff;
                     }
                 }
+            }
+
+            if(localResult < globalResult) {
+                setGlobalResult(localResult);
             }
 
         }
@@ -99,16 +114,21 @@ public class ThreadedMinimumPairwiseDistance implements MinimumPairwiseDistance 
     class Middle implements Runnable {
 
         public void run() {
+            long localResult = Integer.MAX_VALUE;
 
             for(int j = 0; j < values.length-values.length/2; ++j) {
                 for (int i = values.length/2; i <= j+values.length/2; ++i) {
                     // Gives us all the pairs (i, j) where N/2 ≤ i ≤ j + N/2 < N
 
                     long diff = Math.abs((long) values[j] - values[i]);
-                    if (diff < globalResult) {
-                        setGlobalResult(diff);
+                    if (diff < localResult) {
+                        localResult = diff;
                     }
                 }
+            }
+
+            if(localResult < globalResult) {
+                setGlobalResult(localResult);
             }
 
         }

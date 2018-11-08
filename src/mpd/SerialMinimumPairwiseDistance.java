@@ -8,7 +8,7 @@ public class SerialMinimumPairwiseDistance implements MinimumPairwiseDistance {
         for (int i = 0; i < values.length; ++i) {
             for (int j = 0; j < i; ++j) {
                 // Gives us all the pairs (i, j) where 0 <= j < i < values.length
-                long diff = Math.abs(values[i] - values[j]);
+                long diff = Math.abs((long) values[i] - values[j]);
                 if (diff < result) {
                     result = diff;
                 }
