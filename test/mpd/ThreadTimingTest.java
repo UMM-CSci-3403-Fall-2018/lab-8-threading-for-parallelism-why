@@ -23,14 +23,15 @@ public class ThreadTimingTest {
         }
 
         long startTime = System.currentTimeMillis();
-        serialMPD.minimumPairwiseDistance(serialValues);
+        threadedMPD.minimumPairwiseDistance(threadedValues);
         long endTime = System.currentTimeMillis();
-        long serialTime = endTime - startTime;
+        long threadedTime = endTime - startTime;
 
         startTime = System.currentTimeMillis();
-        threadedMPD.minimumPairwiseDistance(threadedValues);
+        serialMPD.minimumPairwiseDistance(serialValues);
         endTime = System.currentTimeMillis();
-        long threadedTime = endTime - startTime;
+        long serialTime = endTime - startTime;
+
 
         System.out.println("The serial time was " + serialTime + "ms");
         System.out.println("The threaded time was " + threadedTime + "ms");
